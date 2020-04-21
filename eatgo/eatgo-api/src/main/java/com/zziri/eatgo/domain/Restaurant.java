@@ -3,15 +3,21 @@ package com.zziri.eatgo.domain;
 public class Restaurant {
 
     private final String name;
-    private final String addres;
+    private final String address;
+    private Long id;
 
-    public Restaurant(String name, String address) {
+    public Restaurant(Long id, String name, String address) {
         this.name = name;
-        this.addres = address;
+        this.address = address;
+        this.id = id;
+    }
+
+    public Long getId() {
+        return this.id;
     }
 
     public String getAddress() {
-        return this.addres;
+        return this.address;
     }
 
     public String getName() {
@@ -19,6 +25,6 @@ public class Restaurant {
     }
 
     public String getInformation() {
-        return this.name + " in " + this.addres;
+        return this.name + " in " + this.address;
     }
 }
