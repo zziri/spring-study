@@ -1,9 +1,13 @@
 package com.zziri.eatgo.interfaces;
 
 
+import com.zziri.eatgo.application.RestaurantService;
+import com.zziri.eatgo.domain.MenuItemRepository;
+import com.zziri.eatgo.domain.MenuItemRepositoryImpl;
 import com.zziri.eatgo.domain.RestaurantRepository;
 import com.zziri.eatgo.domain.RestaurantRepositoryImpl;
 import org.junit.jupiter.api.Test;
+import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
@@ -20,8 +24,14 @@ class RestaurantControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    @SpyBean(RestaurantService.class)
+    private RestaurantService restaurantService;
+
     @SpyBean(RestaurantRepositoryImpl.class)
     private RestaurantRepository restaurantRepository;
+
+    @SpyBean(MenuItemRepositoryImpl.class)
+    private MenuItemRepository menuItemRepository;
 
     @Test
     public void list() throws Exception {
@@ -44,6 +54,9 @@ class RestaurantControllerTest {
                 ))
                 .andExpect(content().string(
                         containsString("\"name\":\"Bob zip\"")
+                ))
+                .andExpect(content().string(
+                        containsString("Kimchi")
                 ));
         mvc.perform(get("/restaurants/2020"))
                 .andExpect(status().isOk())
