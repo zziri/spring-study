@@ -1,7 +1,5 @@
 package com.zziri.eatgo.domain;
 
-import ch.qos.logback.core.BasicStatusManager;
-
 import java.util.ArrayList;
 import java.util.List;
 
