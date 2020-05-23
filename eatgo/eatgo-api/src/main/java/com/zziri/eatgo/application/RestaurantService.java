@@ -34,4 +34,11 @@ public class RestaurantService {
         restaurant.setMenuItems(menuItems);
         return restaurant;
     }
+
+    public Restaurant addRestaurant(Restaurant restaurant) {
+        //        restaurant.setId(1234L);
+////        return new Restaurant(1234L, restaurant.getName(), restaurant.getAddress());
+//        return restaurant;
+        return restaurantRepository.save(restaurant);
+    }
 }

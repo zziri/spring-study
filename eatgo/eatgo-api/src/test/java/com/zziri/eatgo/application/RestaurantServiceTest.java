@@ -6,10 +6,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 public class RestaurantServiceTest {
@@ -22,7 +24,7 @@ public class RestaurantServiceTest {
     private MenuItemRepository menuItemRepository;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
 
         mockRestaurantRepository();
@@ -48,7 +50,7 @@ public class RestaurantServiceTest {
 
 
     @Test
-    public void getRestaurants(){
+    public void getRestaurants() {
         List<Restaurant> restaurants = restaurantService.getRestaurants();
         Restaurant restaurant = restaurants.get(0);
         assertThat(restaurant.getId()).isEqualTo(1004L);
@@ -56,11 +58,20 @@ public class RestaurantServiceTest {
     }
 
     @Test
-    public void getRestaurant(){
+    public void getRestaurant() {
         Restaurant restaurant = restaurantService.getRestaurant(1004L);
         assertThat(restaurant.getId()).isEqualTo(1004L);
         MenuItem menuItem = restaurant.getMenuItems().get(0);
 
         assertThat(menuItem.getName()).isEqualTo("Kimchi");
+    }
+
+    @Test
+    public void addRestaurant() {
+        Restaurant restaurant = new Restaurant("BeRyoung", "Busan");
+        Restaurant saved = new Restaurant(1234L, "BeRyoung", "Busan");
+        given(restaurantRepository.save(any())).willReturn(saved);
+        Restaurant created = restaurantService.addRestaurant(restaurant);
+        assertThat(created.getId()).isEqualTo(1234L);
     }
 }
