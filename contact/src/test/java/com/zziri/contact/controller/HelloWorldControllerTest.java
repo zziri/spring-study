@@ -26,12 +26,12 @@ class HelloWorldControllerTest {
 
     @Test
     void mockMvcTest() throws Exception {
-        mockMvc = MockMvcBuilders.standaloneSetup(helloWorldController).build();
-        mockMvc.perform(
-                MockMvcRequestBuilders.get("/api/helloWorld"))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("HelloWorld"));
+        mockMvc = MockMvcBuilders.standaloneSetup(helloWorldController).build();                            // 뭔지 모르겠다
+        mockMvc.perform(                                                                                    // mvc 패턴으로 실행
+                MockMvcRequestBuilders.get("/api/helloWorld"))                                   // /api/helloWorld url로 get 요청
+                .andDo(MockMvcResultHandlers.print())                                                       // 결과 출력(GET 요청, 헤더, 상태, 내용 등등)
+                .andExpect(MockMvcResultMatchers.status().isOk())                                           // 상태가 200인지 확인
+                .andExpect(MockMvcResultMatchers.content().string("HelloWorld"));             // 결과의 내용(Body) "HelloWorld"인가
     }
 
 }
