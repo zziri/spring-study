@@ -43,7 +43,7 @@ class PersonRepositoryTest {
 
         System.out.println(person2.hashCode());
 
-        Map<Person, Integer> map = new HashMap<>();
+        Map<Person, Integer> map = new HashMap<>();             // key: Person, value: Integer(여기서는 Person.age)
         map.put(person1, person2.getAge());
         System.out.println(map);
         System.out.println(map.get(person2));
