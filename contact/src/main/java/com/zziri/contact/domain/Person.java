@@ -2,16 +2,14 @@ package com.zziri.contact.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
-@Data                                       // @ToString, @EqualsAndHashCode, @Getter, @Setter, @RequiredConstructor를 포함합니다
+@Data                                       // @ToString, @EqualsAndHashCode, @Getter, @Setter, @RequiredArgsConstructor를 포함합니다
 public class Person {
     @Id
     @GeneratedValue
@@ -36,4 +34,7 @@ public class Person {
 
     @ToString.Exclude                       // @ToString 어노테이션으로 toString()의 결과에 표시하는 정보에서 이 변수를 제외합니다
     private String phoneNumber;
+
+    @OneToOne
+    private Block block;
 }
