@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Slf4j
+@Slf4j                  // log.info() 사용을 위함
 public class PersonService {
     @Autowired
     private PersonRepository personRepository;
