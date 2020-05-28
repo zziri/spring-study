@@ -35,6 +35,7 @@ public class Person {
     @ToString.Exclude                       // @ToString 어노테이션으로 toString()의 결과에 표시하는 정보에서 이 변수를 제외합니다
     private String phoneNumber;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private Block block;
 }
