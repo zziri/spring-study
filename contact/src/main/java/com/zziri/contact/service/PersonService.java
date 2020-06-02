@@ -17,10 +17,7 @@ public class PersonService {
     private PersonRepository personRepository;
 
     public List<Person> getPeopleExcludeBlocks() {
-        List<Person> people = personRepository.findAll();
-
-        return people.stream().filter(person -> person.getBlock() == null)
-                .collect(Collectors.toList());                                                      // block되지 않은 객체들만 반환
+        return personRepository.findByBlockIsNull();                // block되지 않은 객체들만 반환
     }
 
     @Transactional(readOnly = true)
@@ -30,5 +27,9 @@ public class PersonService {
         log.info("person : {}", person);
 
         return person;
+    }
+
+    public List<Person> getPeopleByName(String name) {
+        return personRepository.findByName(name);
     }
 }
