@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Entity
 @Data
 @NoArgsConstructor
-@RequiredArgsConstructor
+@RequiredArgsConstructor                // @Data가 있어도 Constructor 관련 어노테이션은 있어야합니다(이유는 모름...)
 public class Block {
     @Id
     @GeneratedValue
