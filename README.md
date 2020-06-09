@@ -18,16 +18,16 @@ Jpa Query Method 위에 선언해줍니다
 value에 해당하는 쿼리를 실행해서 method가 실행되도록 합니다
 nativeQuery = true로 설정해주면 네이티브 SQL을 사용할 수 있습니다 (default는 false입니다)
 
-### @Embedded, @Embeddable
-
-### @Embedded & @Embeddable과 @OneToOne의 차이
-
 #### 예시
 ```java
 @Query(value ="select person from Person person where person.birthday.monthOfBirthday = :monthOfBirthday")
 List<Person> findByMonthOfBirthday(@Param("monthOfBirthday") int monthOfBirthday);
 ```
 Person 객체인 person 중에 person.getBirthday().getMonthOfBirthday() 값이 monthOfBirthday(파라미터의 monthOfBirthday)와 같은 person들을 모두 반환하는 method로 동작하도록 합니다
+
+### @Embedded, @Embeddable
+
+### @Embedded & @Embeddable과 @OneToOne의 차이
 
 ## Data
 
