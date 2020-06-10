@@ -29,6 +29,8 @@ Person 객체인 person 중에 person.getBirthday().getMonthOfBirthday() 값이 
 
 ### @Embedded & @Embeddable과 @OneToOne의 차이
 
+### GeneratedValue(strategy = GenerationType.IDENTITY)
+
 ## Data
 
 ### DAO

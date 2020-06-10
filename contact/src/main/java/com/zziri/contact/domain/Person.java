@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Data                                       // @ToString, @EqualsAndHashCode, @Getter, @Setter, @RequiredArgsConstructor를 포함합니다
 public class Person {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NonNull                                // 생성자로 초기화하는 변수에 이 변수를 포함합니다
