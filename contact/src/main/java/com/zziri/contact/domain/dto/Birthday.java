@@ -1,9 +1,7 @@
 package com.zziri.contact.domain.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import javax.validation.constraints.*;
 
 import javax.persistence.Embeddable;
 import java.time.LocalDate;
