@@ -19,16 +19,16 @@ public class PersonService {
         return personRepository.findByBlockIsNull();                // block되지 않은 객체들만 반환
     }
 
+    public List<Person> getPeopleByName(String name) {
+        return personRepository.findByName(name);
+    }
+
     @Transactional(readOnly = true)
     public Person getPerson(Long id) {
-        Person person = personRepository.findById(id).get();
+        Person person = personRepository.findById(id).orElse(null);
 
         log.info("person : {}", person);
 
         return person;
-    }
-
-    public List<Person> getPeopleByName(String name) {
-        return personRepository.findByName(name);
     }
 }
