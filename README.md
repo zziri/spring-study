@@ -36,6 +36,8 @@ IDENTITY로 설정하면 기본 키 생성을 데이터베이스에 위임합니
 
 ## @Transactional  
 
+## @ResponseStatus(HttpStatus.CREATED)  
+
 ## DAO  
 
 ## DTO  
