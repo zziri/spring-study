@@ -1,7 +1,9 @@
 package com.zziri.contact.domain;
 
+import com.zziri.contact.controller.dto.PersonDto;
 import com.zziri.contact.domain.dto.Birthday;
 import lombok.*;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -12,7 +14,8 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
-@Data                                       // @ToString, @EqualsAndHashCode, @Getter, @Setter, @RequiredArgsConstructor를 포함합니다
+@Data
+// @ToString, @EqualsAndHashCode, @Getter, @Setter, @RequiredArgsConstructor를 포함합니다
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +48,34 @@ public class Person {
     @ToString.Exclude                       // @ToString 어노테이션으로 toString()의 결과에 표시하는 정보에서 이 변수를 제외합니다
     private String phoneNumber;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)          // 다시 공부하고 정리, Person도 Block도 DB에 들어가는 entity라서 해줘야하는 설정인 것으로 기억
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    // 다시 공부하고 정리, Person도 Block도 DB에 들어가는 entity라서 해줘야하는 설정인 것으로 기억
     @ToString.Exclude
     private Block block;
+
+    public void set(PersonDto personDto) {
+        if (personDto.getAge() != 0) {
+            this.setAge(personDto.getAge());
+        }
+
+        if (!StringUtils.isEmpty(personDto.getHobby())) {
+            this.setHobby(personDto.getHobby());
+        }
+
+        if(!StringUtils.isEmpty(personDto.getBloodType())) {
+            this.setBloodType(personDto.getBloodType());
+        }
+
+        if(!StringUtils.isEmpty(personDto.getAddress())) {
+            this.setAddress(personDto.getAddress());
+        }
+
+        if(!StringUtils.isEmpty(personDto.getJob())) {
+            this.setJob(personDto.getJob());
+        }
+
+        if(!StringUtils.isEmpty(personDto.getPhoneNumber())) {
+            this.setPhoneNumber(personDto.getPhoneNumber());
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.zziri.contact.controller;
 
+import com.zziri.contact.controller.dto.PersonDto;
 import com.zziri.contact.domain.Person;
 import com.zziri.contact.repository.PersonRepository;
 import com.zziri.contact.service.PersonService;
@@ -27,6 +28,18 @@ public class PersonController {
     @ResponseStatus(HttpStatus.CREATED)
     public void postPerson(@RequestBody Person person) {
         personService.put(person);
+        log.info("person -> {}", personRepository.findAll());
+    }
+
+    @PutMapping("/{id}")
+    public void modifyPerson(@PathVariable Long id, @RequestBody PersonDto personDto) {
+        personService.modify(id, personDto);
+        log.info("person -> {}", personRepository.findAll());
+    }
+
+    @PatchMapping("/{id}")
+    public void modifyPerson(@PathVariable Long id, String name) {
+        personService.modify(id, name);
         log.info("person -> {}", personRepository.findAll());
     }
 }
