@@ -35,12 +35,18 @@ contact 프로젝트의 경우 Person 객체가 update 혹은 delete될 때 Birt
 IDENTITY로 설정하면 기본 키 생성을 데이터베이스에 위임합니다  
 
 ## @Transactional  
+해당 클래스의 모든 메소드 혹은 해당 메소드를 트랜젝션으로 동작하도록 합니다  
 
 ## @ResponseStatus(HttpStatus.CREATED)  
+Post 요청이 완료되고 나서 http status code를 200(OK)가 아닌 201(Created)가 발생하도록 만듭니다  
 
 ## @Slf4j  
+log를 찍을 때 사용합니다  
+
 
 ## @RequestBody  
+JSON 형태로 정보를 전달받을 때 Controller 메소드의 매개변수에 붙여줍니다  
+JSON 형태로 전달되는 정보가 자동으로 변수에 대입됩니다  
 
 ## @NotEmpty, @Column(nullable = false)  
 
