@@ -3,6 +3,8 @@ package com.zziri.contact.domain;
 import com.zziri.contact.controller.dto.PersonDto;
 import com.zziri.contact.domain.dto.Birthday;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Where;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
@@ -14,8 +16,8 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
-@Data
-// @ToString, @EqualsAndHashCode, @Getter, @Setter, @RequiredArgsConstructor를 포함합니다
+@Data                               // @ToString, @EqualsAndHashCode, @Getter, @Setter, @RequiredArgsConstructor를 포함합니다
+@Where(clause = "deleted = false")
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,6 +49,9 @@ public class Person {
 
     @ToString.Exclude                       // @ToString 어노테이션으로 toString()의 결과에 표시하는 정보에서 이 변수를 제외합니다
     private String phoneNumber;
+
+    @ColumnDefault("0")
+    private boolean deleted;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     // 다시 공부하고 정리, Person도 Block도 DB에 들어가는 entity라서 해줘야하는 설정인 것으로 기억

@@ -24,6 +24,7 @@ public class PersonController {
         return personService.getPerson(id);
     }
 
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void postPerson(@RequestBody Person person) {
@@ -40,6 +41,13 @@ public class PersonController {
     @PatchMapping("/{id}")
     public void modifyPerson(@PathVariable Long id, String name) {
         personService.modify(id, name);
+        log.info("person -> {}", personRepository.findAll());
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletePerson(@PathVariable Long id) {
+        personService.delete(id);
+
         log.info("person -> {}", personRepository.findAll());
     }
 }
