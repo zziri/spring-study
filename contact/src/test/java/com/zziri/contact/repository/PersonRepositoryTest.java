@@ -19,7 +19,6 @@ class PersonRepositoryTest {
     @Test
     void crud() {
         Person person = new Person();
-        person.setAge(10);
         person.setName("john");
         person.setBloodType("A");
 
@@ -29,7 +28,6 @@ class PersonRepositoryTest {
 
         assertThat(result.size()).isEqualTo(1);
         assertThat(result.get(0).getName()).isEqualTo("john");
-        assertThat(result.get(0).getAge()).isEqualTo(10);
         assertThat(result.get(0).getBloodType()).isEqualTo("A");
     }
 
