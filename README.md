@@ -54,6 +54,9 @@ JSON 형태로 전달되는 정보가 자동으로 변수에 대입됩니다
 
 ## 2. Data  
 
+참고 사이트:
+https://gmlwjd9405.github.io/2018/12/25/difference-dao-dto-entity.html  
+
 ### 2.1 DAO  
 
 ### 2.2 DTO  
