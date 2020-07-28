@@ -1,6 +1,6 @@
 # spring-boot-study  
 
-spring boot를 공부하면서 정리하는 저장소입니다  
+스프링 부트를 공부하기 위한 저장소입니다  
 
 
 ## Annotation  
