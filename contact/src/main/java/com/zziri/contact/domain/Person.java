@@ -9,7 +9,6 @@ import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
