@@ -2,7 +2,6 @@ package com.zziri.contact.service;
 
 import com.zziri.contact.controller.dto.PersonDto;
 import com.zziri.contact.domain.Person;
-import com.zziri.contact.domain.dto.Birthday;
 import com.zziri.contact.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
