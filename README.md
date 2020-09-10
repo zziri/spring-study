@@ -2,6 +2,47 @@
 
 스프링 부트를 공부하기 위한 저장소입니다  
 
+## Source Code  
+
+### PersonDto.java
+
+```java
+@Data
+@AllArgsConstructor(staticName = "of")
+@NoArgsConstructor
+public class PersonDto {
+    private String name;
+    private String hobby;
+    private String address;
+    private LocalDate birthday;
+    private String job;
+    private String phoneNumber;
+}
+```
+
+#### @Data  
+
+롬복의 어노테이션 중 하나입니다.  
+클래스 안의 모든 private 필드에 대해 `@Getter`, `@Setter`를 적용합니다.  
+클래스 내에 `@ToString`, `@EqualsAndHashCode`를 적용시켜 method들을 override 합니다.  
+`@RequiredArgsConstructor`를 지정합니다.  
+
+#### @AllArgsConstructor(staticName = "of")  
+
+롬복의 어노테이션 중 하나입니다.
+모든 필드를 파라미터로 가지는 생성자를 만듭니다.  
+staticName을 설정하면 그 이름으로 static method를 만듭니다.  
+
+```java
+PersonDto.of("martin", "programming", "판교", LocalDate.now(), "programmer", "010-1111-2222");
+```
+
+#### @NoArgsConstructor  
+
+롬복의 어노테이션 중 하나입니다.  
+파라미터가 없는 생성자를 만듭니다.  
+
+
 
 ## Annotation  
   
