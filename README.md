@@ -113,7 +113,14 @@ public class Person {
 
 #### @Entity  
 
-#### @Where(clause = "delete = false")  
+객체와 테이블을 매핑할 때 사용합니다.  
+JPA를 사용해서 테이블과 매핑할 클래스는 반드시 @Entity를 붙여야 합니다.  
+
+
+#### @Where(clause = "deleted = false")  
+
+JPA에서 Person 객체를 가져올 때 항상 deleted가 false인 데이터만 가져오게 됩니다.  
+person.deleted == true 인 경우 삭제된 것으로 간주하고 데이터를 가져오지 않습니다.  
 
 #### @Id, @GeneratedValue(strategy = GenerationType.IDENTITY)  
 
