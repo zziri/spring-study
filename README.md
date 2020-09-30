@@ -124,7 +124,16 @@ person.deleted == true 인 경우 삭제된 것으로 간주하고 데이터를 
 
 #### @Id, @GeneratedValue(strategy = GenerationType.IDENTITY)  
 
+@Id 어노테이션을 사용하면 해당 변수(attribute)를 PK(Primary Key)로 지정합니다  
+@GeneratedValue 어노테이션을 사용하면 자동으로 키를 생성합니다  
+strategy = GenerationType.IDENTITY 로 지정하면 PK 생성을 데이터베이스에 위임하며 auto increment 방식으로 자동 생성합니다  
+
 #### @NonNull, @NotEmpty, @Column(nullable = false), @ColumnDefault("0")  
+
+@NonNull은 롬복의 어노테이션이며 사용하면 해당 변수는 null을 허용하지 않습니다  
+@NotEmpty 어노테이션을 사용하면 해당 변수는 null, ""를 허용하지 않습니다  
+@Column(nullable = false) 어노테이션을 사용하면 데이터베이스 테이블에서 해당 컬럼의 null을 허용하지 않습니다  
+@ColumnDefault("0"), 데이터베이스 테이블에서  해당 컬럼의 default값을 "0"으로 합니다  
 
 #### @Valid, @Embedded  
 
