@@ -137,4 +137,9 @@ strategy = GenerationType.IDENTITY 로 지정하면 PK 생성을 데이터베이
 
 #### @Valid, @Embedded  
 
+@Valid는 @Min, @Max, @Size, @NotNull 등의 조건에 따라서 해당 객체가 유효한지 검사합니다  
+@Embedded는 JPA Entity 안에 하나의 객체(birthday)를 포함할 때 사용합니다 해당 객체(birthday)에는 @Embeddable 어노테이션이 필요합니다  
+
 #### public void set(PersonDto personDto)  
+
+DTO 객체로 Person 객체를 세팅할 때 사용하는 함수입니다  
