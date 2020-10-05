@@ -143,3 +143,25 @@ strategy = GenerationType.IDENTITY 로 지정하면 PK 생성을 데이터베이
 #### public void set(PersonDto personDto)  
 
 DTO 객체로 Person 객체를 세팅할 때 사용하는 함수입니다  
+
+### PersonRepository.java
+
+```java
+public interface PersonRepository extends JpaRepository<Person, Long> {
+    List<Person> findByName(String name);
+    @Query(value ="select person from Person person where person.birthday.monthOfBirthday = :monthOfBirthday")
+    List<Person> findByMonthOfBirthday(@Param("monthOfBirthday") int monthOfBirthday);
+
+    @Query(value = "select * from Person person where person.deleted = true", nativeQuery = true)
+    List<Person> findPeopleDeleted();
+}
+```
+
+#### extends JpaRepository
+
+#### findByName()
+
+#### findByMonthOfBirthday()
+
+#### findPeopleDeleted()
+
