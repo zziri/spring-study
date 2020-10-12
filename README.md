@@ -157,11 +157,19 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 }
 ```
 
-#### extends JpaRepository
+#### PersonRepository extends JpaRepository
+PersonRepository는 JpaRepository 클래스를 상속받는 interface 입니다
+이 Repository를 이용해 검색 메소드를 정의할 수 있습니다
 
 #### findByName()
+name 속성으로 Person 객체를 검색하는 메소드입니다
 
 #### findByMonthOfBirthday()
+생일이 몇 월인지로 Person 객체를 검색하는 메소드입니다
+생일 데이터는 Birthday 클래스 내에 연월일 데이터가 있으므로 쿼리에 "where person.birthday.monthOfBirthday = :monthOfBirthday" 조건을 붙여 실행합니다
+매개변수가 쿼리의 "monthOfBirthday"와 매핑될 수 있도록 @Param 어노테이션을 적용합니다
 
 #### findPeopleDeleted()
+삭제된 Person 객체를 검색하는 메소드입니다
+Person 클래스에 @Where(clause = "deleted = false") 어노테이션이 적용되어 있으므로 쿼리에 "where person.deleted = true" 조건을 붙여 실행합니다
 
