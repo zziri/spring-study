@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -30,5 +31,25 @@ class PersonServiceTest {
 
         assertThat(result.size()).isEqualTo(1);
         assertThat(result.get(0).getName()).isEqualTo("martin");
+    }
+
+    @Test
+    void getPerson() {
+        when(personRepository.findById(1L))
+                .thenReturn(Optional.of(new Person("martin")));
+
+        Person person = personService.getPerson(1L);
+
+        assertThat(person.getName()).isEqualTo("martin");
+    }
+
+    @Test
+    void getPersonIfNotFound() {
+        when(personRepository.findById(1L))
+                .thenReturn(Optional.empty());
+
+        Person person = personService.getPerson(1L);
+
+        assertThat(person).isNull();
     }
 }
