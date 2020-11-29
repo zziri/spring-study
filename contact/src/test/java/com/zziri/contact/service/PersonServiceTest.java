@@ -1,5 +1,6 @@
 package com.zziri.contact.service;
 
+import com.zziri.contact.controller.dto.PersonDto;
 import com.zziri.contact.domain.Person;
 import com.zziri.contact.repository.PersonRepository;
 import org.assertj.core.util.Lists;
@@ -9,11 +10,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class PersonServiceTest {
@@ -51,5 +54,14 @@ class PersonServiceTest {
         Person person = personService.getPerson(1L);
 
         assertThat(person).isNull();
+    }
+
+    @Test
+    void put() {
+        PersonDto personDto = PersonDto.of("martin", "programming", "pangyo", LocalDate.now(), "dev", "010-1111-111");
+
+        personService.put(personDto);
+
+        verify(personRepository, times(1)).save(any(Person.class));
     }
 }
