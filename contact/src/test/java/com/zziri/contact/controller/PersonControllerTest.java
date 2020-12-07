@@ -17,12 +17,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.util.NestedServletException;
 
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -46,14 +46,17 @@ class PersonControllerTest {
 
     @BeforeEach
     void beforeEach() {
-        mockMvc = MockMvcBuilders.standaloneSetup(personController).setMessageConverters(messageConverter).build();
+        mockMvc = MockMvcBuilders
+                .standaloneSetup(personController)
+                .setMessageConverters(messageConverter)
+                .alwaysDo(print())
+                .build();
     }
 
     @Test
     void getPerson() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/api/person/1"))
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("martin"))
                 .andExpect(jsonPath("$.hobby").isEmpty())
@@ -73,18 +76,29 @@ class PersonControllerTest {
                 MockMvcRequestBuilders.post("/api/person")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(toJsonString(dto)))
-                .andDo(print())
                 .andExpect(status().isCreated());
 
         Person result = personRepository.findAll(Sort.by(Sort.Direction.DESC, "id")).get(0);
         assertAll(
-                ()->assertThat(result.getName()).isEqualTo("martin"),
-                ()->assertThat(result.getHobby()).isEqualTo("programming"),
-                ()->assertThat(result.getAddress()).isEqualTo("판교"),
-                ()->assertThat(result.getBirthday()).isEqualTo(Birthday.of(LocalDate.now())),
-                ()->assertThat(result.getJob()).isEqualTo("programmer"),
-                ()->assertThat(result.getPhoneNumber()).isEqualTo("010-1111-2222")
+                () -> assertThat(result.getName()).isEqualTo("martin"),
+                () -> assertThat(result.getHobby()).isEqualTo("programming"),
+                () -> assertThat(result.getAddress()).isEqualTo("판교"),
+                () -> assertThat(result.getBirthday()).isEqualTo(Birthday.of(LocalDate.now())),
+                () -> assertThat(result.getJob()).isEqualTo("programmer"),
+                () -> assertThat(result.getPhoneNumber()).isEqualTo("010-1111-2222")
         );
+    }
+
+    @Test
+    void postPersonIsNameIsNull() throws Exception {
+        PersonDto personDto = new PersonDto();
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.post("/api/person")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(toJsonString(personDto)))
+                .andExpect(jsonPath("$.code").value(500))
+                .andExpect(jsonPath("$.message").value("알 수 없는 서버 오류가 발생하였습니다"));
     }
 
     @Test
@@ -95,7 +109,6 @@ class PersonControllerTest {
                 MockMvcRequestBuilders.put("/api/person/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(toJsonString(dto)))
-                .andDo(print())
                 .andExpect(status().isOk());
 
         Person result = personRepository.findById(1L).get();
@@ -114,13 +127,26 @@ class PersonControllerTest {
     void modifyPersonIfNameIsDifferent() throws Exception {
         PersonDto dto = PersonDto.of("james", "programming", "판교", LocalDate.now(), "programmer", "010-1111-1111");
 
-        assertThrows(NestedServletException.class, () ->
-                mockMvc.perform(
-                        MockMvcRequestBuilders.put("/api/person/1")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(toJsonString(dto)))
-                        .andDo(print())
-                        .andExpect(status().isOk()));
+        mockMvc.perform(
+                MockMvcRequestBuilders.put("/api/person/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(toJsonString(dto)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value(400))
+                .andExpect(jsonPath("$.message").value("이름 변경을 허용하지 않습니다"));
+    }
+
+    @Test
+    void modifyPersonIfPersonNotFound() throws Exception {
+        PersonDto personDto = PersonDto.of("james", "programming", "pangyo", LocalDate.now(), "programmer", "010-1111-2222");
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.put("/api/person/10")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(toJsonString(personDto)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value(400))
+                .andExpect(jsonPath("$.message").value("Person Entity가 존재하지 않습니다"));
     }
 
     @Test
@@ -128,7 +154,6 @@ class PersonControllerTest {
         mockMvc.perform(
                 MockMvcRequestBuilders.patch("/api/person/1")
                         .param("name", "martinModified"))
-                .andDo(print())
                 .andExpect(status().isOk());
 
         assertThat(personRepository.findById(1L).get().getName()).isEqualTo("martinModified");
@@ -138,7 +163,6 @@ class PersonControllerTest {
     void deletePerson() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.delete("/api/person/1"))
-                .andDo(print())
                 .andExpect(status().isOk());
 
         assertTrue(personRepository.findPeopleDeleted().stream().anyMatch(person -> person.getId().equals(1L)));

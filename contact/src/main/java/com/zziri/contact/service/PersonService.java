@@ -3,7 +3,7 @@ package com.zziri.contact.service;
 import com.zziri.contact.controller.dto.PersonDto;
 import com.zziri.contact.domain.Person;
 import com.zziri.contact.exception.PersonNotFoundException;
-import com.zziri.contact.exception.RenameNotPermittedException;
+import com.zziri.contact.exception.RenameIsNotPermittedException;
 import com.zziri.contact.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class PersonService {
         Person person = personRepository.findById(id).orElseThrow(PersonNotFoundException::new);
 
         if (!person.getName().equals(personDto.getName())) {
-            throw new RenameNotPermittedException();
+            throw new RenameIsNotPermittedException();
         }
 
         person.set(personDto);
