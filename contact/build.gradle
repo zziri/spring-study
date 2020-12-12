@@ -1,37 +1,37 @@
 plugins {
-	id 'org.springframework.boot' version '2.3.0.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
-	id 'java'
+    id 'org.springframework.boot' version '2.1.6.RELEASE'
+    id 'java'
 }
+
+apply plugin: 'io.spring.dependency-management'
 
 group = 'com.zziri'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'com.h2database:h2'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	compile group: 'javax.validation', name: 'validation-api', version: '2.0.0.Final'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
-	testImplementation 'org.mockito:mockito-junit-jupiter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'com.h2database:h2'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.junit.platform:junit-platform-launcher:1.5.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.5.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter'
 }
 
 test {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
