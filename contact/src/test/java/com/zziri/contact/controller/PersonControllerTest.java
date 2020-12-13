@@ -53,15 +53,15 @@ class PersonControllerTest {
     @Test
     void getAll() throws Exception {
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/api/person"))
+                MockMvcRequestBuilders.get("/api/person")
+                        .param("page", "1")
+                        .param("size", "2"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$").value(hasSize(6)))
-                .andExpect(jsonPath("$.[0].name").value("martin"))
-                .andExpect(jsonPath("$.[1].name").value("david"))
-                .andExpect(jsonPath("$.[2].name").value("dennis"))
-                .andExpect(jsonPath("$.[3].name").value("sophia"))
-                .andExpect(jsonPath("$.[4].name").value("benny"))
-                .andExpect(jsonPath("$.[5].name").value("tony"));
+                .andExpect(jsonPath("$.totalPages").value(3))
+                .andExpect(jsonPath("$.totalElements").value(6))
+                .andExpect(jsonPath("$.numberOfElements").value(2))
+                .andExpect(jsonPath("$.content.[0].name").value("dennis"))
+                .andExpect(jsonPath("$.content.[1].name").value("sophia"));
     }
 
     @Test
@@ -120,8 +120,8 @@ class PersonControllerTest {
 
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/api/person")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(toJsonString(dto)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(toJsonString(dto)))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code").value(400))
                 .andExpect(jsonPath("$.message").value("이름은 필수값입니다"));
