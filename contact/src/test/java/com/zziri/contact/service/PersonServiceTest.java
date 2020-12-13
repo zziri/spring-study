@@ -160,6 +160,7 @@ class PersonServiceTest {
                     && equals(person.getJob(), ("programmer"))
                     && equals(person.getPhoneNumber(), ("010-1111-2222"));
         }
+
         private boolean equals(Object actual, Object expected) {
             return expected.equals(actual);
         }
