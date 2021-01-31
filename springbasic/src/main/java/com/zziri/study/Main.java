@@ -14,9 +14,13 @@ class Main {
         Statement statement = null;
         try {
             Class.forName("org.h2.Driver");
-            String url = "jdbc:h2:~/test; MODE=MySQL;";
+            String url = "jdbc:h2:mem:test;MODE=MySQL;";
             connection = DriverManager.getConnection(url, "sa", "");
             statement = connection.createStatement();
+
+            statement.execute("create table member(id int auto_increment, username varchar(255) not null, password varchar(255) not null, primary key(id))");
+
+            statement.executeUpdate("insert into member(username, password) values('jihoon', '1234')");
 
             ResultSet resultSet = statement.executeQuery("select id, username, password from member");
             while (resultSet.next()) {
@@ -41,7 +45,5 @@ class Main {
                 e.printStackTrace();
             }
         }
-
-
     }
 }
