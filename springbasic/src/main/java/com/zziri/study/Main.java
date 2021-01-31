@@ -18,6 +18,8 @@ class Main {
             connection = DriverManager.getConnection(url, "sa", "");
             statement = connection.createStatement();
 
+            connection.setAutoCommit(false);
+
             statement.execute("create table member(id int auto_increment, username varchar(255) not null, password varchar(255) not null, primary key(id))");
 
             statement.executeUpdate("insert into member(username, password) values('jihoon', '1234')");
@@ -29,10 +31,17 @@ class Main {
                 String password = resultSet.getString("password");
                 logger.info(String.format("id: %d, username : %s, password : %s", id, username, password));
             }
+
+            connection.commit();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         } finally {
             try {
                 statement.close();
