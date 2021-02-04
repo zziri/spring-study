@@ -1,4 +1,4 @@
-package com.zziri.study;
+package com.zziri.study.cli;
 
 import lombok.*;
 
